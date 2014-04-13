@@ -1,17 +1,16 @@
 package com.blackwhite
 {
 	import com.agame.utils.SystemUtil;
-
-	import flash.desktop.NativeApplication;
+	
 	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.media.SoundTransform;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
-
+	
 	import so.cuo.platform.admob.Admob;
 	import so.cuo.platform.admob.AdmobPosition;
-
+	
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
