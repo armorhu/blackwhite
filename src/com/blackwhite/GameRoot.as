@@ -174,10 +174,10 @@ package com.blackwhite
 		{
 			admob.hideBanner();
 			admob.showBanner(Admob.BANNER, AdmobPosition.BOTTOM_CENTER);
-			if (admob.isInterstitialReady())
-				intersititialTimeOut=setTimeout(show, 1500);
-			else
-				admob.cacheInterstitial();
+//			if (admob.isInterstitialReady())
+//				intersititialTimeOut=setTimeout(show, 1500);
+//			else
+//				admob.cacheInterstitial();
 			removeChildren();
 			addChild(result);
 		}
