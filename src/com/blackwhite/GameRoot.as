@@ -1,5 +1,6 @@
 package com.blackwhite
 {
+	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.media.SoundTransform;
 	import flash.utils.clearTimeout;
@@ -8,6 +9,7 @@ package com.blackwhite
 	import so.cuo.platform.admob.Admob;
 	import so.cuo.platform.admob.AdmobPosition;
 
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.text.TextField;
@@ -15,49 +17,44 @@ package com.blackwhite
 
 	public class GameRoot extends Sprite
 	{
-		public const cloums:int=4;
-		public const rows:int=4;
-
-		public const withe:uint=0xffffff;
-		public const black:uint=0x0;
-//		public const withe:uint=0x0;
-//		public const black:uint=0xffffff;
-
-
-		public const yellow:uint=0xFFFF99;
-		public const grey:uint=0x999999;
-		public const red:uint=0xCC3333;
-		public const green:uint=0x009900;
-
-
-		public const MODE_CLASSIC:String='捉鸡模式';
-		public const CLASSIC_STEP:int=50;
-		public const MODE_JIE:String='无尽模式';
-		public const MODE_CHAN:String="30″\n竞速模式";
-		public const CHAN_LIFE:Number=30.000;
-
-		public const BUTTON_RETRY:String='重玩';
-		public const BUTTON_BACK:String='首页';
-
-		public const TEXT_BEST:String='最佳:';
-		public const TEXT_FAILED:String='失败了!';
-		public const TEXT_MODE:String='';
-
-		public const TEXT_TIME_OUT:String='时间到!!!';
-
-		public const TEXT_NEW_RECORED:String='新纪录!'
-
+		//default setting ....
+		public var appid:String='860769730';
+		public var cloums:int=4;
+		public var rows:int=4;
+		public var withe:uint=0x0;
+		public var black:uint=0xffffff;
+		public var yellow:uint=0xFFFF99;
+		public var grey:uint=0x999999;
+		public var red:uint=0xCC3333;
+		public var green:uint=0x009900;
+		public var MODE_CLASSIC:String='捉鸡模式';
+		public var CLASSIC_STEP:int=50;
+		public var MODE_JIE:String='无尽模式';
+		public var MODE_CHAN:String="30″\n竞速模式";
+		public var CHAN_LIFE:Number=30.000;
+		public var BUTTON_RETRY:String='重玩';
+		public var BUTTON_BACK:String='首页';
+		public var TEXT_BEST:String='最佳:';
+		public var TEXT_FAILED:String='失败了!';
+		public var TEXT_MODE:String='';
+		public var TEXT_TIME_OUT:String='时间到!!!';
+		public var TEXT_NEW_RECORED:String='新纪录!';
+		public var BUTTON_GAME_CENTER:String='排行榜';
+		public var BUTTON_RATE_ME:String='评分';
+		public var BUTTON_MORE_GAME:String='更多游戏';
 		public var blockWidht:Number;
 		public var blockHeight:Number;
 		public var stageWidth:Number;
 		public var stageHeight:Number
-
 		public var Scale:Number=1;
-
 		public var XXL:int=120;
 		public var XL:int=100;
 		public var L:int=60;
 		public var S:int=40;
+
+		public var admob_iphone:String='a153491819ad964';
+		public var admob_ipad:String='a153491819ad964';
+		public var admob_android:String='a153491819ad964';
 
 		public var fontName:String='fonts';
 		public var assets:AssetManager;
@@ -68,12 +65,13 @@ package com.blackwhite
 		{
 			super();
 			Game=this;
-			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler)
+			addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler)
 		}
 
 		private function addedToStageHandler():void
 		{
 			// TODO Auto Generated method stub
+			Starling.current.nativeStage.dispatchEvent(new flash.events.Event('init'));
 			initliaze();
 		}
 
@@ -85,25 +83,21 @@ package com.blackwhite
 			blockWidht=stageWidth / cloums;
 			blockHeight=stageHeight / rows;
 			Scale=stageWidth / 640;
-
 			Cookies.initialize('blackwhite');
 			gameScore=Cookies.getObject('gameScore');
 			if (gameScore == null)
 				gameScore={};
-
 			loading=new TextField(256 * Scale, 64 * Scale, '', 'mini', 48 * Scale, 0xffffff);
 			loading.x=(stageWidth - loading.width) / 2;
 			loading.y=(stageHeight - loading.height) / 2;
 			addChild(loading);
-
 			assets=new AssetManager;
 			assets.enqueue(File.applicationDirectory.resolvePath('res'));
 			assets.loadQueue(assetsProgressing);
-
 			admob=Admob.getInstance();
 			if (admob.supportDevice)
 			{
-				admob.setKeys('a153491819ad964');
+				admob.setKeys(admob_iphone);
 				admob.enableTrace=false;
 			}
 		}
@@ -154,7 +148,7 @@ package com.blackwhite
 			}
 
 			admob.hideBanner();
-			admob.showBanner(Admob.BANNER, AdmobPosition.BOTTOM_CENTER);
+			admob.showBanner(Admob.BANNER, AdmobPosition.TOP_CENTER);
 		}
 
 		public function showMenu():void
@@ -171,7 +165,7 @@ package com.blackwhite
 		public function showResult():void
 		{
 			admob.hideBanner();
-			admob.showBanner(Admob.BANNER, AdmobPosition.BOTTOM_CENTER);
+			admob.showBanner(Admob.BANNER, AdmobPosition.TOP_CENTER);
 			if (admob.isInterstitialReady())
 				intersititialTimeOut=setTimeout(show, 1500);
 			else
@@ -213,12 +207,11 @@ package com.blackwhite
 			Cookies.setObject('gameScore', gameScore, 0, true);
 		}
 
-		public const beep:String='beep';
-		public const cheer:String='cheer';
-		public const error:String='error';
-		public const tick:String='tick';
-		public const touch:String='touch';
-
+		public var beep:String='beep';
+		public var cheer:String='cheer';
+		public var error:String='error';
+		public var tick:String='tick';
+		public var touch:String='touch';
 		private var transfrom:SoundTransform;
 
 		public function playSound(name:String, loops:int):void

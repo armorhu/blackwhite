@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="blackwhite.as" projectUUID="56576519-cf9b-4978-bc93-2246ed9ef591" version="11">
+<actionScriptProperties analytics="false" mainApplicationPath="blackwhiteEx.as" projectUUID="56576519-cf9b-4978-bc93-2246ed9ef591" version="11">
   <compiler additionalCompilerArguments="-locale zh_CN&#10;-swf-version 23" advancedTelemetry="false" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" useFlashSDK="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="/Users/hufan/Documents/workspace/开源库/feathers-1.3.0/source"/>
@@ -42,6 +42,9 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
+    <application path="blackwhiteEx.as">
+      <airExcludes/>
+    </application>
     <application path="blackwhite.as">
       <airExcludes/>
     </application>
@@ -51,8 +54,8 @@
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
-    <buildTarget buildTargetName="device" iosSettingsVersion="2" isCurrent="true" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="/Users/hufan/Documents/workspace/armorhu_git/CookiesClicker/projs/blackwhite/blackwhite.mobileprovision" releasePackageType="ipa-app-store">
-      <airSettings airCertificatePath="/Users/hufan/Documents/workspace/armorhu_git/CookiesClicker/projs/blackwhite/certs.p12" airTimestamp="true" anePathSet="true" version="1">
+    <buildTarget buildTargetName="device" iosSettingsVersion="2" isCurrent="true" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="/Users/hufan/Documents/workspace/armorhu_git/blackwhite/blackwhite.mobileprovision" releasePackageType="ipa-app-store">
+      <airSettings airCertificatePath="/Users/hufan/Documents/workspace/armorhu_git/blackwhite/certs.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths>
           <anePathEntry path="ane/admob_all_in_one6.6.7.ane"/>
@@ -79,6 +82,15 @@
       <multiPlatformSettings enabled="false" hideAneLibSymbols="0" includePlatformLibs="false" platformID="default" reducedSizePackaging="false" version="1"/>
       <actionScriptSettings version="1"/>
     </buildTarget>
+    <buildTarget airDownloadURL="https://market.android.com/details?id=com.adobe.air" androidSettingsVersion="2" buildTargetName="device" isCurrent="true" platformId="com.adobe.flexide.multiplatform.android.platform">
+      <airSettings airCertificatePath="/Users/hufan/Documents/workspace/armorhu_git/blackwhite/android.p12" airTimestamp="true" anePathSet="true" version="1">
+        <airExcludes/>
+        <anePaths>
+          <anePathEntry path="ane/admob_all_in_one6.6.7.ane"/>
+        </anePaths>
+      </airSettings>
+      <multiPlatformSettings enabled="true" hideAneLibSymbols="0" includePlatformLibs="false" platformID="com.adobe.flexide.multiplatform.android.platform" reducedSizePackaging="false" version="1"/>
+      <actionScriptSettings version="1"/>
+    </buildTarget>
   </buildTargets>
 </actionScriptProperties>
-
