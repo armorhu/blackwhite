@@ -1,5 +1,8 @@
 package com.blackwhite
 {
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -56,13 +59,42 @@ package com.blackwhite
 			labelButton.y=h;
 
 			addEventListener(Event.TRIGGERED, tiggeredHandler);
+
+
+			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
+			labelButton.x=w;
+			labelButton.y=h + labelButton.height * 1;
+			addChild(labelButton);
+
+
+			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
+			labelButton.x=w;
+			labelButton.y=h + labelButton.height * 2;
+			addChild(labelButton);
+
+
+			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
+			labelButton.x=w;
+			labelButton.y=h + labelButton.height * 3;
+			addChild(labelButton);
 		}
 
 		private function tiggeredHandler(evt:Event):void
 		{
 			// TODO Auto Generated method stub
 			var labelName:String=evt.target['name'];
-			Game.start(labelName);
+			if (labelName == Game.BUTTON_GAME_CENTER)
+			{
+			}
+			else if (labelName == Game.BUTTON_MORE_GAME)
+			{
+				navigateToURL(new URLRequest("itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=" + Game.appid));
+			}
+			else if (labelName == Game.BUTTON_RATE_ME)
+			{
+			}
+			else
+				Game.start(labelName);
 		}
 	}
 }

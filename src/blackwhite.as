@@ -7,11 +7,11 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageOrientation;
 	import flash.display.StageQuality;
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.StageOrientationEvent;
 	import flash.geom.Rectangle;
 	import flash.media.AudioPlaybackMode;
-	import flash.media.Sound;
 	import flash.media.SoundMixer;
 	import flash.ui.Keyboard;
 
@@ -25,11 +25,21 @@ package
 		public function blackwhite()
 		{
 			super();
+			if (stage)
+			{
+				init(null);
+			}
+			else
+			{
+				addEventListener(flash.events.Event.ADDED_TO_STAGE, init);
+			}
+		}
 
-			trace(EmbedAssets.CookiesCLICK_XML);
-			var sound:Sound=new EmbedAssets.CookiesCLICK_XML;
-			sound.play();
-			return;
+
+		private function init(evt:flash.events.Event):void
+		{
+			removeEventListener(flash.events.Event.ADDED_TO_STAGE, init);
+
 			stage.color=0x0;
 			stage.frameRate=60;
 			stage.quality=StageQuality.LOW;
@@ -39,7 +49,6 @@ package
 			SoundMixer.audioPlaybackMode=AudioPlaybackMode.AMBIENT;
 			start();
 		}
-
 
 		protected var m_starling:Starling;
 		protected var viewPort:Rectangle;
@@ -54,7 +63,7 @@ package
 
 			Starling.handleLostContext=true; //android建议处理
 			m_starling=new Starling(GameRoot, stage, viewPort);
-			m_starling.addEventListener(Event.ROOT_CREATED, onCreateContext3d);
+			m_starling.addEventListener(starling.events.Event.ROOT_CREATED, onCreateContext3d);
 			m_starling.simulateMultitouch=false;
 			m_starling.enableErrorChecking=false;
 		}
@@ -63,9 +72,9 @@ package
 		 * Context3d构造成功
 		 * @param e
 		 */
-		private function onCreateContext3d(e:Event):void
+		private function onCreateContext3d(e:starling.events.Event):void
 		{
-			e.target.removeEventListener(Event.ROOT_CREATED, onCreateContext3d);
+			e.target.removeEventListener(starling.events.Event.ROOT_CREATED, onCreateContext3d);
 			Starling.current.start();
 		}
 
