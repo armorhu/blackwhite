@@ -7,16 +7,12 @@ package com.blackwhite
 	import flash.display.Shape;
 	import flash.display.StageQuality;
 	import flash.geom.Point;
-	import flash.media.SoundChannel;
-	import flash.utils.clearTimeout;
 	import flash.utils.getTimer;
-	import flash.utils.setTimeout;
 
 	import feathers.display.TiledImage;
 
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
-	import starling.core.starling_internal;
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -53,7 +49,10 @@ package com.blackwhite
 
 			scoreLabel=Game.createTextfiled('', Game.stageWidth, 64 * Game.Scale, Game.L * Game.Scale, Game.red);
 			addChild(scoreLabel);
-			scoreLabel.x=(Game.stageWidth - scoreLabel.width) / 2;
+			if (Game.app_type == 'default')
+				scoreLabel.x=(Game.stageWidth - scoreLabel.width) / 2;
+			else
+				scoreLabel.y=100;
 
 			Game.stage.addEventListener(TouchEvent.TOUCH, touchStageHandler);
 

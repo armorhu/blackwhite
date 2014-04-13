@@ -160,7 +160,13 @@
 		<image732x412></image732x412>
 		<image1024x1024></image1024x1024>
 	</icon> -->
-
+	<icon>
+		<image57x57>iconex/icon-57.png</image57x57>
+		<image72x72>iconex/icon-72.png</image72x72>
+		<image76x76>iconex/icon-76.png</image76x76>
+		<image120x120>iconex/icon-120.png</image120x120>
+		<image152x152>iconex/icon-152.png</image152x152>
+	</icon>
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).
 	Optional. Default false. -->
@@ -266,6 +272,12 @@
 		<manifestAdditions>
 			<![CDATA[
 			<manifest android:installLocation="auto">
+			uses-sdk android:targetSdkVersion="11"/>
+     			<uses-sdk android:minSdkVersion="8"/>
+  	  			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    			<application>
+  	 			<activity android:name="com.google.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/> 
+    			</application>
 			    <!--See the Adobe AIR documentation for more information about setting Google Android permissions-->
 			    <!--删除 android.permission.INTERNET 权限将导致无法调试设备上的应用程序-->
 			    <uses-permission android:name="android.permission.INTERNET"/>

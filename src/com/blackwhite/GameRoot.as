@@ -1,5 +1,8 @@
 package com.blackwhite
 {
+	import com.agame.utils.SystemUtil;
+
+	import flash.desktop.NativeApplication;
 	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.media.SoundTransform;
@@ -18,6 +21,7 @@ package com.blackwhite
 	public class GameRoot extends Sprite
 	{
 		//default setting ....
+		public var app_type:String='default';
 		public var appid:String='860769730';
 		public var cloums:int=4;
 		public var rows:int=4;
@@ -53,8 +57,8 @@ package com.blackwhite
 		public var S:int=40;
 
 		public var admob_iphone:String='a153491819ad964';
-		public var admob_ipad:String='a153491819ad964';
-		public var admob_android:String='a153491819ad964';
+		public var admob_ipad:String='a1534a7ec255c50';
+		public var admob_android:String='a1534a7f76632ce';
 
 		public var fontName:String='fonts';
 		public var assets:AssetManager;
@@ -97,7 +101,12 @@ package com.blackwhite
 			admob=Admob.getInstance();
 			if (admob.supportDevice)
 			{
-				admob.setKeys(admob_iphone);
+				if (SystemUtil.isAndroid())
+					admob.setKeys(admob_android);
+				else if (SystemUtil.isIpad())
+					admob.setKeys(admob_ipad);
+				else
+					admob.setKeys(admob_iphone);
 				admob.enableTrace=false;
 			}
 		}
@@ -148,7 +157,7 @@ package com.blackwhite
 			}
 
 			admob.hideBanner();
-			admob.showBanner(Admob.BANNER, AdmobPosition.TOP_CENTER);
+			admob.showBanner(Admob.BANNER, app_type == 'default' ? AdmobPosition.BOTTOM_CENTER : AdmobPosition.TOP_CENTER);
 		}
 
 		public function showMenu():void
@@ -165,7 +174,7 @@ package com.blackwhite
 		public function showResult():void
 		{
 			admob.hideBanner();
-			admob.showBanner(Admob.BANNER, AdmobPosition.TOP_CENTER);
+			admob.showBanner(Admob.BANNER, AdmobPosition.BOTTOM_CENTER);
 			if (admob.isInterstitialReady())
 				intersititialTimeOut=setTimeout(show, 1500);
 			else

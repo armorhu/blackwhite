@@ -22,6 +22,7 @@ package
 			Game.withe=0xffffff;
 			Game.rows=8;
 			Game.cloums=8;
+			Game.app_type='ex';
 		}
 	}
 }

@@ -61,22 +61,22 @@ package com.blackwhite
 			addEventListener(Event.TRIGGERED, tiggeredHandler);
 
 
-			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
-			labelButton.x=w;
-			labelButton.y=h + labelButton.height * 1;
-			addChild(labelButton);
-
-
-			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
-			labelButton.x=w;
-			labelButton.y=h + labelButton.height * 2;
-			addChild(labelButton);
-
-
-			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
-			labelButton.x=w;
-			labelButton.y=h + labelButton.height * 3;
-			addChild(labelButton);
+//			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
+//			labelButton.x=w;
+//			labelButton.y=h + labelButton.height * 1;
+//			addChild(labelButton);
+//
+//
+//			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
+//			labelButton.x=w;
+//			labelButton.y=h + labelButton.height * 2;
+//			addChild(labelButton);
+//
+//
+//			labelButton=new LabelButton(Game.BUTTON_GAME_CENTER, w, h / 5, Game.S * Game.Scale, Game.black);
+//			labelButton.x=w;
+//			labelButton.y=h + labelButton.height * 3;
+//			addChild(labelButton);
 		}
 
 		private function tiggeredHandler(evt:Event):void
