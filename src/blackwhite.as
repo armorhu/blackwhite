@@ -1,7 +1,7 @@
 package
 {
 	import com.blackwhite.GameRoot;
-	
+
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
 	import flash.display.Sprite;
@@ -11,11 +11,12 @@ package
 	import flash.events.StageOrientationEvent;
 	import flash.geom.Rectangle;
 	import flash.media.AudioPlaybackMode;
+	import flash.media.Sound;
 	import flash.media.SoundMixer;
 	import flash.ui.Keyboard;
-	
+
 	import so.cuo.platform.admob.Admob;
-	
+
 	import starling.core.Starling;
 	import starling.events.Event;
 
@@ -24,28 +25,18 @@ package
 		public function blackwhite()
 		{
 			super();
-			stage.color=0x0;
-//			TestFlighter.setup();
-//			var s:Shape=new Shape;
-//			s.graphics.lineStyle(2, 0xffffff);
-//			s.graphics.drawRect(0, 0, 100, 100);
-//			s.graphics.endFill();
-////			addChild(s)
-//
-//			var bmd:BitmapData=new BitmapData(100, 100,true,0x0);
-//			bmd.drawWithQuality(s, null, null, null, null, true, StageQuality.BEST);
-//			var i:Bitmap=new Bitmap(bmd);
-//			addChild(i);
-//
-//			return;
 
+			trace(EmbedAssets.CookiesCLICK_XML);
+			var sound:Sound=new EmbedAssets.CookiesCLICK_XML;
+			sound.play();
+			return;
+			stage.color=0x0;
 			stage.frameRate=60;
 			stage.quality=StageQuality.LOW;
 			NativeApplication.nativeApplication.systemIdleMode=SystemIdleMode.KEEP_AWAKE; //保持屏幕唤醒
 			stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging);
 			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
 			SoundMixer.audioPlaybackMode=AudioPlaybackMode.AMBIENT;
-
 			start();
 		}
 
