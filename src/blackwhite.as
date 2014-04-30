@@ -10,12 +10,11 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.StageOrientationEvent;
+	import flash.filesystem.File;
 	import flash.geom.Rectangle;
 	import flash.media.AudioPlaybackMode;
 	import flash.media.SoundMixer;
 	import flash.ui.Keyboard;
-
-	import so.cuo.platform.admob.Admob;
 
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -25,6 +24,7 @@ package
 		public function blackwhite()
 		{
 			super();
+			trace(File.applicationStorageDirectory.nativePath);
 			if (stage)
 			{
 				init(null);
@@ -52,7 +52,6 @@ package
 
 		protected var m_starling:Starling;
 		protected var viewPort:Rectangle;
-		private var admob:Admob;
 
 
 		public function start():void

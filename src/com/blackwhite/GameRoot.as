@@ -1,16 +1,25 @@
 package com.blackwhite
 {
 	import com.agame.utils.SystemUtil;
-	
+	import com.amgame.utils.BitmapdataUtils;
+
+	import flash.display.BitmapData;
+	import flash.display.PNGEncoderOptions;
 	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.media.SoundTransform;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
-	
+
+	import ane.proxy.wechat.WechatProxy;
+
+	import feathers.controls.Alert;
+	import feathers.data.ListCollection;
+	import feathers.themes.MetalWorksMobileTheme;
+
 	import so.cuo.platform.admob.Admob;
 	import so.cuo.platform.admob.AdmobPosition;
-	
+
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -22,6 +31,7 @@ package com.blackwhite
 		//default setting ....
 		public var app_type:String='default';
 		public var appid:String='860769730';
+		public var appstore_url:String='https://itunes.apple.com/us/app/bie-cai-hei-kuai-er/id';
 		public var cloums:int=4;
 		public var rows:int=4;
 		public var withe:uint=0x0;
@@ -29,6 +39,7 @@ package com.blackwhite
 		public var yellow:uint=0xFFFF99;
 		public var grey:uint=0x999999;
 		public var red:uint=0xCC3333;
+		public var blue:uint=0x01ffff;
 		public var green:uint=0x009900;
 		public var MODE_CLASSIC:String='捉鸡模式';
 		public var CLASSIC_STEP:int=50;
@@ -37,12 +48,14 @@ package com.blackwhite
 		public var CHAN_LIFE:Number=30.000;
 		public var BUTTON_RETRY:String='重玩';
 		public var BUTTON_BACK:String='首页';
+		public var BUTTON_SHARED:String='炫耀';
 		public var TEXT_BEST:String='最佳:';
 		public var TEXT_FAILED:String='失败了!';
 		public var TEXT_MODE:String='';
 		public var TEXT_TIME_OUT:String='时间到!!!';
 		public var TEXT_NEW_RECORED:String='新纪录!';
 		public var BUTTON_GAME_CENTER:String='排行榜';
+		public var BUTTON_SHARE_APP:String='推荐给朋友';
 		public var BUTTON_RATE_ME:String='评分';
 		public var BUTTON_MORE_GAME:String='更多游戏';
 		public var blockWidht:Number;
@@ -81,6 +94,8 @@ package com.blackwhite
 
 		public function initliaze():void
 		{
+			new MetalWorksMobileTheme(stage);
+			stage.color=0x0;
 			stageWidth=stage.stageWidth;
 			stageHeight=stage.stageHeight;
 			blockWidht=stageWidth / cloums;
@@ -127,6 +142,9 @@ package com.blackwhite
 
 		private function setupGame():void
 		{
+			trace('Game font', TextField.getBitmapFont(fontName));
+			WechatProxy.setup('wx83705d131d3c73ef'); //启动ane
+
 			loading.removeFromParent(true);
 			trace('setupGame....');
 			map=new Map;
@@ -145,6 +163,8 @@ package com.blackwhite
 			map.reset(mode);
 		}
 
+		private var _first:Boolean=true;
+
 		public function showMap():void
 		{
 			removeChildren();
@@ -155,6 +175,11 @@ package com.blackwhite
 				intersititialTimeOut=0;
 			}
 
+			if (_first)
+			{
+				_first=false;
+				return;
+			}
 			admob.hideBanner();
 			admob.showBanner(Admob.BANNER, app_type == 'default' ? AdmobPosition.BOTTOM_CENTER : AdmobPosition.TOP_CENTER);
 		}
@@ -182,11 +207,11 @@ package com.blackwhite
 			addChild(result);
 		}
 
-		public function show():void
-		{
-			admob.showInterstitial();
-			admob.cacheInterstitial();
-		}
+//		public function show():void
+//		{
+//			admob.showInterstitial();
+//			admob.cacheInterstitial();
+//		}
 
 		public function createTextfiled(text:String='', width:Number=128, height:Number=64, size:int=30, color:uint=0x0):TextField
 		{
@@ -232,6 +257,30 @@ package com.blackwhite
 			}
 			else
 				assets.playSound(name, 0, loops);
+		}
+
+		public function alter(title:String, msg:String, buttonLabels:Array, buttonTriggers:Array):void
+		{
+			var _buttons:ListCollection=new ListCollection;
+			var num:int=buttonLabels.length;
+			for (var i:int=0; i < num; i++)
+				_buttons.addItem({label: buttonLabels[i], triggered: buttonTriggers[i]});
+			var alter:Alert=Alert.show(msg, title, _buttons);
+			alter.width*=1.5;
+			alter.height*=1.2;
+		}
+
+		public function share():void
+		{
+			var bmd:BitmapData=new BitmapData(stage.stageWidth, stage.stageHeight);
+			this.stage.drawToBitmapData(bmd);
+			var imgURL:String=File.applicationStorageDirectory.nativePath + File.separator + 'screen_shot.png';
+			BitmapdataUtils.saveBitmapTo(imgURL, bmd, new PNGEncoderOptions);
+			WechatProxy.sendImage( //
+				imgURL, //
+				'下载地址:' + appstore_url + appid, // 
+				'下载地址:' + appstore_url + appid, // 
+				WechatProxy.SHARE_TO_ALL_FRIENDS);
 		}
 	}
 }

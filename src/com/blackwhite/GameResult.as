@@ -21,6 +21,7 @@ package com.blackwhite
 		public var lb:Sprite;
 		public var backLabel:LabelButton;
 		public var retryLabel:LabelButton;
+		public var shareLabel:LabelButton;
 
 		private function initliaze():void
 		{
@@ -43,23 +44,24 @@ package com.blackwhite
 			bestScore.y=score.y + score.height;
 			addChild(bestScore);
 
-
-
-
 			lb=new Sprite();
 			lb.y=4 * Game.stageHeight / 5;
 			addChild(lb);
 
+			shareLabel=new LabelButton(Game.BUTTON_SHARED, 128 * Game.Scale, 64 * Game.Scale, Game.L * Game.Scale);
+			shareLabel.pivotX=shareLabel.width / 2;
+			shareLabel.x=1 * Game.stageWidth / 5;
+			lb.addChild(shareLabel);
+
 			retryLabel=new LabelButton(Game.BUTTON_RETRY, 128 * Game.Scale, 64 * Game.Scale, Game.L * Game.Scale);
 			retryLabel.pivotX=retryLabel.width / 2;
-			retryLabel.x=2 * Game.stageWidth / 3;
-
+			retryLabel.x=2.5 * Game.stageWidth / 5;
 			lb.addChild(retryLabel);
 
 			backLabel=new LabelButton(Game.BUTTON_BACK, 128 * Game.Scale, 64 * Game.Scale, Game.L * Game.Scale);
 			backLabel.pivotX=backLabel.width / 2;
 			lb.addChild(backLabel);
-			backLabel.x=1 * Game.stageWidth / 3;
+			backLabel.x=4 * Game.stageWidth / 5;
 
 			lb.addEventListener(Event.TRIGGERED, triggeredHandler)
 		}
@@ -76,7 +78,10 @@ package com.blackwhite
 			{
 				Game.start();
 			}
-
+			else if (targetName == Game.BUTTON_SHARED)
+			{
+				Game.share();
+			}
 		}
 
 		/**
@@ -94,6 +99,7 @@ package com.blackwhite
 				bestScore.color=Game.black;
 				backLabel.textfiled.color=Game.black;
 				retryLabel.textfiled.color=Game.black;
+				shareLabel.textfiled.color=Game.black;
 			}
 			else if (style == 1)
 			{
@@ -103,6 +109,7 @@ package com.blackwhite
 				bestScore.color=Game.black;
 				backLabel.textfiled.color=Game.black;
 				retryLabel.textfiled.color=Game.black;
+				shareLabel.textfiled.color=Game.black;
 			}
 			else if (style == 2)
 			{
@@ -112,7 +119,7 @@ package com.blackwhite
 				bestScore.color=Game.withe;
 				backLabel.textfiled.color=Game.withe;
 				retryLabel.textfiled.color=Game.withe;
-
+				shareLabel.textfiled.color=Game.withe;
 			}
 		}
 	}

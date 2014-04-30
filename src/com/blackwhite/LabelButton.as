@@ -20,22 +20,16 @@ package com.blackwhite
 			this.name=text;
 		}
 
-
 		/**
 		 * @private
 		 */
 		protected function accessory_touchHandler(event:TouchEvent):void
 		{
-//			if (this.isDisabled)
-//				return;
 			if (this.touchPointID >= 0)
 			{
 				var touch:Touch=event.getTouch(this, TouchPhase.ENDED, this.touchPointID);
 				if (!touch)
 					return;
-//				itemClicked();
-//				if (!this._isSelected)
-//					this.isSelected=true;
 				Game.playSound(Game.touch, 0);
 				dispatchEventWith(Event.TRIGGERED, true);
 				this.touchPointID=-1;

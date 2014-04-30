@@ -8,6 +8,9 @@ package com.blackwhite
 	import flash.display.StageQuality;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
+	import flash.utils.setTimeout;
+
+	import ane.proxy.wechat.WechatProxy;
 
 	import feathers.display.TiledImage;
 
@@ -56,8 +59,6 @@ package com.blackwhite
 
 			Game.stage.addEventListener(TouchEvent.TOUCH, touchStageHandler);
 
-
-
 			var tiledImage:TiledImage;
 			// TODO Auto Generated method stub
 			var s:Shape=new Shape;
@@ -99,25 +100,6 @@ package com.blackwhite
 			blockContainer.globalToLocal(sHelperPoint, sHelperPoint);
 			redBlock.x=Math.floor(sHelperPoint.x / Game.blockWidht) * Game.blockWidht;
 			redBlock.y=Math.floor(sHelperPoint.y / Game.blockHeight) * Game.blockHeight;
-
-//			var len:int=blocks.length;
-//			for (var i:int=0; i < len; i++)
-//			{
-//				if (blocks[i].x == redBlock.x && blocks[i].y == redBlock.y)
-//				{
-//					trace('判断重合了！！！');
-//					trace('---全局坐标', touch.globalX, touch.globalY);
-//					trace('---本地坐标', sHelperPoint);
-//					trace('---取整以后的坐标', redBlock.x, redBlock.y);
-//					//判断重合了
-//					redBlock.x=touch.globalX;
-//					redBlock.y=touch.globalY;
-//					stage.addChild(redBlock);
-////					flashQuad(blocks[i], 1);
-//					stop();
-//					return;
-//				}
-//			}
 			blockContainer.addChild(redBlock);
 			Game.playSound(Game.error, 3);
 			flashQuad(redBlock, 1);
@@ -430,6 +412,8 @@ package com.blackwhite
 
 			var scroe:Number;
 			var bestScroe:Number=Game.getScore(mode);
+			var share:Boolean=false;
+
 			if (mode == Game.MODE_CLASSIC)
 			{
 				scroe=gameTime;
@@ -440,6 +424,7 @@ package com.blackwhite
 					//新纪录
 					resultScreen.bestScore.text=Game.TEXT_NEW_RECORED;
 					Game.setScore(mode, scroe);
+					share=true;
 				}
 				else
 				{
@@ -456,12 +441,28 @@ package com.blackwhite
 					//新纪录
 					resultScreen.bestScore.text=Game.TEXT_NEW_RECORED;
 					Game.setScore(mode, scroe);
+					share=true;
 				}
 				else
 				{
 					resultScreen.bestScore.text=Game.TEXT_BEST + bestScroe.toString();
 				}
 			}
+
+			if (share == true)
+			{
+				var tl:TimelineMax=new TimelineMax();
+				tl.append(TweenLite.to(Game.result.shareLabel, 0.1, {alpha: 0}));
+				tl.append(TweenLite.to(Game.result.shareLabel, 0.1, {alpha: 1}));
+				tl.repeat(3);
+				tl.play();
+//				Game.alter('新纪录!', '去和小伙伴们炫耀一下？', ['这就去', '残忍的拒绝'], [shareWin, null]);
+			}
+		}
+
+		public function shareWin():void
+		{
+			setTimeout(Game.share, 1);
 		}
 	}
 }
